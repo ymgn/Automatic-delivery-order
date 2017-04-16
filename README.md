@@ -1,24 +1,17 @@
-# README
+# Automatic Delivery Order
+※開発中※
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 伝説の「お寿司を自動で注文してくれるマン」に対する様々な意見
 
-Things you may want to cover:
++ 更に使いやすく！
++ もっと色々なサイトを！
++ ピザも食べたい！
++ webでメニューを見て注文リストを作りたい！
 
-* Ruby version
+#### そういったものを元に、更に進化して帰ってくる！
 
-* System dependencies
+#### BASIC認証を用いる事で、様々なユーザーが、色々なサイトや、自身の注文リストを使い分けてcurlを叩くことができるようになり、更に便利に！
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### 対応予定
++ sushi 銀のさら
++ pizza ドミノ・ピザ
