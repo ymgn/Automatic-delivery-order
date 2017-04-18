@@ -53,6 +53,8 @@ group :development do
   gem "pry-byebug"
 end
 
+gem 'devise'
+
 # better_errors 
 gem "binding_of_caller"
 
