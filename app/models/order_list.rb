@@ -1,4 +1,4 @@
 class OrderList < ApplicationRecord
   has_many :order
-  belong_to :account
+  belongs_to :account
 end
