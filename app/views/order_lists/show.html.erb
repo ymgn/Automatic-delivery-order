@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @order_list.account_id %>
+</p>
+
+<p>
+  <strong>Order token:</strong>
+  <%= @order_list.order_token %>
+</p>
+
+<p>
+  <strong>Sort num:</strong>
+  <%= @order_list.sort_num %>
+</p>
+
+<%= link_to 'Edit', edit_order_list_path(@order_list) %> |
+<%= link_to 'Back', order_lists_path %>
