@@ -66,7 +66,11 @@ gem 'capybara'
 # Twitter Bootstrap
 gem 'therubyracer' # javascript runtime。lessをコンパイルするために必要
 gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
+gem 'execjs' # JavaScriptコードを実行するためのエンジン
 gem 'twitter-bootstrap-rails' # Bootstrapの本体
+
+# シンプルフォーム
+gem 'simple_form'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
