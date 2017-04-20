@@ -48,9 +48,13 @@
         <a class="navbar-brand" href="#">AutomaticDeliveryOrder</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Login", "/users/sign_in"  %></li>
-            <li><%= link_to "注文", "#"  %></li>
-            <li><%= link_to "Link3", "#"  %></li>
+            <% if user_signed_in? %>
+              <li><%= link_to "注文リスト", "%"  %></li>
+              <li><%= link_to "Logout", "/users/sign_out", method: :delete  %></li>
+            <% else %>
+              <li><%= link_to "新規登録", "/users/sign_up"  %></li>
+              <li><%= link_to "ログイン", "/users/sign_in"  %></li>
+            <% end %>
           </ul>
         </div>
       </div>
