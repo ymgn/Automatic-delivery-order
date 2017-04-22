@@ -15,5 +15,10 @@
   <%= @order_list.sort_num %>
 </p>
 
+<p>
+  <strong>Name:</strong>
+  <%= @order_list.name %>
+</p>
+
 <%= link_to 'Edit', edit_order_list_path(@order_list) %> |
 <%= link_to 'Back', order_lists_path %>
