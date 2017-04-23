@@ -65,6 +65,11 @@ class AccountsController < ApplicationController
     end
   end
 
+  def item_list
+    @item_list = Account.find(params["id"]).item_list
+    redirect_to :action => "show"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account

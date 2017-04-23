@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :orders
   resources :order_lists
   resources :accounts
+  get "/accounts/:id/item_list", to: "accounts#item_list"
   resources :sites
   # resources :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
