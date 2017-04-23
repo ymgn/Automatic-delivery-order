@@ -15,8 +15,8 @@
   <tbody>
     <% @sites.each do |site| %>
       <tr>
-        <td><%= site.site_id %></td>
-        <td><%= site.site_name %></td>
+        <td><%= site.code %></td>
+        <td><%= site.name %></td>
         <td><%= site.url %></td>
         <td><%= link_to 'Show', site %></td>
         <td><%= link_to 'Edit', edit_site_path(site) %></td>

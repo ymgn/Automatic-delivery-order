@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
   def show
     # セッションに保存した商品データから商品情報を持ってくる予定
     @order_lists = Account.find(params["id"]).order_list
-    @site_name = Account.find(params["id"]).site.site_name
+    @site_name = Account.find(params["id"]).site.name
   end
 
   # GET /accounts/new
@@ -73,6 +73,6 @@ class AccountsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:user_id, :site_id, :mail, :password, :password_confirmation)
+      params.require(:account).permit(:user_id, :site_id, :email, :password)
     end
 end
