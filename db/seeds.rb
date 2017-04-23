@@ -16,14 +16,14 @@ user.save!
 
 # サイト
 site = Site.new
-site.site_id = "sushi"
-site.site_name = "銀のさら"
+site.code = "sushi"
+site.name = "銀のさら"
 site.url = "https://www.ginsara.jp/"
 site.save!
 
 site = Site.new
-site.site_id = "pizza"
-site.site_name = "ドミノ・ピザ"
+site.code = "pizza"
+site.name = "ドミノ・ピザ"
 site.url = "http://www.dominos.jp/"
 site.save!
 
@@ -31,49 +31,49 @@ site.save!
 account = Account.new
 account.user_id = 1
 account.site_id = 1
-account.mail = "user1-1@example.com"
+account.email = "user1-1@example.com"
 account.password = "hogehoge"
 account.save!
 
 account = Account.new
 account.user_id = 1
 account.site_id = 2
-account.mail = "user1-1@example.com"
+account.email = "user1-1@example.com"
 account.password = "hogehoge"
 account.save!
 
 account = Account.new
 account.user_id = 1
 account.site_id = 1
-account.mail = "user1-2@example.com"
+account.email = "user1-2@example.com"
 account.password = "hogehoge"
 account.save!
 
 # 注文リスト
 order_list = OrderList.new
 order_list.account_id = 1
-order_list.order_token = "hogehoge"
+order_list.order_token = "hogehoge1"
 order_list.sort_num = 1
 order_list.name = "まぐろづくし"
 order_list.save!
 
 order_list = OrderList.new
 order_list.account_id = 1
-order_list.order_token = "hogehoge"
+order_list.order_token = "hogehoge2"
 order_list.sort_num = 1
 order_list.name = "軍艦づくし"
 order_list.save!
 
 order_list = OrderList.new
 order_list.account_id = 3
-order_list.order_token = "hogehoge"
+order_list.order_token = "hogehoge3"
 order_list.sort_num = 1
 order_list.name = "鉄火巻"
 order_list.save!
 
 order_list = OrderList.new
 order_list.account_id = 2
-order_list.order_token = "hogehoge"
+order_list.order_token = "hogehoge4"
 order_list.sort_num = 1
 order_list.name = "ギガ・ミート二枚"
 order_list.save!
