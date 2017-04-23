@@ -1,2 +1,22 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<% if user_signed_in? %>
+  <h1>Automatic Delivery Order</h1>
+  <p>アカウント一覧</p>
+  <% @account_data.each do |key,val| %>
+    <div class="row">
+      <div class="col-md-4"><%= key %></div>
+      <div class="col-md-8">
+        <ol>
+        <% val.each do |v| %>
+          <li>
+            <a href="/accounts/<%= v.id %>"><%= v.mail %></a>
+          </li>
+        <% end %>
+        </ol>
+      </div>
+    </div>
+  <% end %>
+
+<% else %>
+  <h1>Automatic Delivery Order</h1>
+  <p>新規登録するかログインしてください。</p>
+<% end%>
