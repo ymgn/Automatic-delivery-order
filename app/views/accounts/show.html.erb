@@ -1,24 +1,28 @@
 <p id="notice"><%= notice %></p>
+<%= link_to '戻る', accounts_path %>
+<h1><%= @site_name %> <%= @account.mail %></h1>
+<%= link_to 'アカウント情報を編集', edit_account_path(@account) %>
 
-<p>
-  <strong>User:</strong>
-  <%= @account.user_id %>
-</p>
-
-<p>
-  <strong>Site:</strong>
-  <%= @account.site_id %>
-</p>
-
-<p>
-  <strong>Mail:</strong>
-  <%= @account.mail %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @account.password_digest %>
-</p>
-
-<%= link_to 'Edit', edit_account_path(@account) %> |
-<%= link_to 'Back', accounts_path %>
+<% count = 0%>
+<% @order_lists.each do |order_list| %>
+  <h2>No.<%= count+=1 %> <%=  %><%= order_list.name %></h2>
+  <table class="table table-bordered">
+    <tr>
+      <th>商品ID</th>
+      <th>商品名</th>
+      <th>注文数</th>
+      <th></th>
+    </tr>
+    <% order_list.order.each do |o|%>
+    <tr>
+      <td><%= o.item_id %></td>
+      <td>商品名</td>
+      <td><%= o.item_num %></td>
+      <td><a href="#">商品詳細</a></td>
+    </tr>
+    <% end %>
+  </table>
+<div class="button-area">
+  <a href="/order_lists/<%= order_list.id %>">編集</a>
+</div>
+<% end %>

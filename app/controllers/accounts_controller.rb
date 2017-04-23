@@ -11,6 +11,9 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.json
   def show
+    # セッションに保存した商品データから商品情報を持ってくる予定
+    @order_lists = Account.find(params["id"]).order_list
+    @site_name = Account.find(params["id"]).site.site_name
   end
 
   # GET /accounts/new
