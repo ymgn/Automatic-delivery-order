@@ -26,3 +26,15 @@
   <a href="/order_lists/<%= order_list.id %>">編集</a>
 </div>
 <% end %>
+<% if @item_list.present? %>
+<table class="table table-bordered">
+  <tr>
+    <th>名前</th>
+  </tr>
+  <% @item_list.each do |item|%>
+    <tr>
+      <td><%= item %></td>
+    </tr>
+  <% end %>
+</table>
+<% end %>

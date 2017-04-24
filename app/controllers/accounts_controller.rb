@@ -14,6 +14,7 @@ class AccountsController < ApplicationController
     # セッションに保存した商品データから商品情報を持ってくる予定
     @order_lists = Account.find(params["id"]).order_list
     @site_name = Account.find(params["id"]).site.name
+    @item_list = session[:item_list]
   end
 
   # GET /accounts/new
@@ -66,7 +67,7 @@ class AccountsController < ApplicationController
   end
 
   def item_list
-    @item_list = Account.find(params["id"]).item_list
+    session[:item_list] = Account.find(params["id"]).item_list
     redirect_to :action => "show"
   end
 

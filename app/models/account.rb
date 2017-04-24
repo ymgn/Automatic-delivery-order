@@ -78,7 +78,17 @@ class Account < ApplicationRecord
         p "======================ログイン成功============================="
         page.save_screenshot('screenshot2.png', :full => true)
         page.find('.top-service-menu').click
-
+        page.find(:xpath, "//div[@class='menu_nav-btn']/a[@href='/menu/category_CO000/']").click
+        page.save_screenshot('screenshot3.png', :full => true)
+        p "======================桶一覧に移動============================="
+        name = []
+        # Nokogiriでhtmlを解析してObjectに
+        doc = Nokogiri::HTML.parse(page.html)
+        menulist = doc.xpath('//ul[@class="menulist cols-1of2"]')
+        menulist.css("li").each do |menu|
+          name.append(menu.xpath('p[@class="menulist_pdct"]').text)
+        end
+        return name
       end
   end
 end
