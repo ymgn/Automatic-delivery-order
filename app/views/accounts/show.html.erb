@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <%= link_to '戻る', accounts_path %>
-<h1><%= @site_name %> <%= @account.email %></h1>
+<h1><%= @site_name %> [<%= @account.email %>][<%= @account.code %>]</h1>
 <%= link_to 'アカウント情報を編集', edit_account_path(@account) %>
 <%= link_to '商品リストを取得・更新', account_item_list_path %>
 <% count = 0%>

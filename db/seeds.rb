@@ -31,6 +31,7 @@ site.save!
 account = Account.new
 account.user_id = 1
 account.site_id = 1
+account.code = "family"
 account.email = "user1-1@example.com"
 account.password = "hogehoge"
 account.save!
@@ -38,6 +39,7 @@ account.save!
 account = Account.new
 account.user_id = 1
 account.site_id = 2
+account.code = "father"
 account.email = "user1-1@example.com"
 account.password = "hogehoge"
 account.save!
@@ -45,6 +47,7 @@ account.save!
 account = Account.new
 account.user_id = 1
 account.site_id = 1
+account.code = "yamagon"
 account.email = "user1-2@example.com"
 account.password = "hogehoge"
 account.save!
