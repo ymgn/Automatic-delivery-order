@@ -72,5 +72,8 @@ gem 'twitter-bootstrap-rails' # Bootstrapの本体
 # シンプルフォーム
 gem 'simple_form'
 
+# DBにセッションを保存する
+gem 'activerecord-session_store'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
