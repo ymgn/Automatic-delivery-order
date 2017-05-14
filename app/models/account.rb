@@ -1,6 +1,7 @@
 require 'capybara'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
+require 'json'
 
 class Account < ApplicationRecord
   has_many :order_list
@@ -36,6 +37,7 @@ class Account < ApplicationRecord
   # 商品リストを取得する
   def item_list
     print "============商品リスト取得開始========="
+    # ログイン用のデータ取得
     email = self.email
     password = self.decrypt_password
     
@@ -49,7 +51,7 @@ class Account < ApplicationRecord
         'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2564.97 Safari/537.36"
     }
 
-    url = "https://www.ginsara.jp/"
+    url = self.site.url
 
     case self.site.code
       when "sushi" then
@@ -59,7 +61,6 @@ class Account < ApplicationRecord
         # ----ログイン処理-----
         p "================ログイン処理に入りました。==============="
         login_button = page.find(".header_nav-login")
-        page.save_screenshot('screenshot1-2.png', :full => true)
         login_button.click
         mail_input = page.find("#mail")
         mail_input.native.send_key(email)
@@ -70,6 +71,7 @@ class Account < ApplicationRecord
         # ログインができたかどうか判定
         if !page.has_css?("h4.h4-shop")
           p "======================ログイン失敗============================="
+          session.driver.quit
           return 1
         end
         # ------ログイン後--------
@@ -83,7 +85,6 @@ class Account < ApplicationRecord
         page.find(:xpath, "//div[@class='menu_nav-btn']/a[@href='/menu/category_CO000/']").click
         page.save_screenshot('screenshot3.png', :full => true)
         p "======================桶一覧に移動============================="
-        name = ""
         item_list = {}
         # Nokogiriでhtmlを解析してObjectに
         doc = Nokogiri::HTML.parse(page.html)
@@ -91,12 +92,18 @@ class Account < ApplicationRecord
         menulist.css("li").each do |menu|
           item = {}
           li_name = menu.xpath('p[@class="menulist_pdct"]').text
-          item["name"] = /\W/.match(li_name).post_match
-          item[]
+          item["name"]        = /\W/.match(li_name).post_match
+          item["img"]         = menu.xpath('div/div/a/img')[0][:src]
+          item["info"]        = menu.xpath('div/div/div/p[@class="menuinfo_price-text"]').text
+          item["price"]       = menu.xpath('div/div/div/p[@class="menuinfo_price-price"]').text
+          item["description"] = menu.xpath('div/p').text
           item_list[li_name[/\w+/]] = item
         end
-        Thread.current[:request].session[:sushi_list] = item_list
+        File.open("tmp/item_list/account_#{self.id}.json","w") do |file| 
+          JSON.dump(item_list,file)
+        end
       end
+      page.driver.quit
       return 0
   end
 end

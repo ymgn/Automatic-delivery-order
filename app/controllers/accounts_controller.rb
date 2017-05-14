@@ -1,3 +1,5 @@
+require 'json'
+
 class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
@@ -17,17 +19,18 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.json
   def show
-    # セッションに保存した商品データから商品情報を持ってくる予定
+    # アカウント毎のjsonファイルに保存した商品データから商品情報を表示
     @order_lists = Account.find(params["id"]).order_list
     @site_name = Account.find(params["id"]).site.name
 
     # 表示する商品リスト
-    case Account.find(params["id"]).site_id
-    when "1" then
-      @item_list = session[:sushi_list]
-    else
-      @item_list = ""
-    end
+    file_path = "tmp/item_list/account_#{params["id"]}.json"
+      if File.exist?(file_path)
+        json_file = File.open(file_path).read
+        @item_list = JSON.load(json_file)
+      else
+        @item_list = ""
+      end
 
     # 処理が成功したかのメッセージ
     case session["item_list_result"]
