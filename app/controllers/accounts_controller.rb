@@ -2,6 +2,12 @@ class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  # モデルからrequestを参照できるようにする
+  before_filter :set_request_filter
+  def set_request_filter
+    Thread.current[:request] = request
+  end
+
   # GET /accounts
   # GET /accounts.json
   def index
@@ -14,7 +20,24 @@ class AccountsController < ApplicationController
     # セッションに保存した商品データから商品情報を持ってくる予定
     @order_lists = Account.find(params["id"]).order_list
     @site_name = Account.find(params["id"]).site.name
-    @item_list = session[:item_list]
+
+    # 表示する商品リスト
+    case Account.find(params["id"]).site_id
+    when "1" then
+      @item_list = session[:sushi_list]
+    else
+      @item_list = ""
+    end
+
+    # 処理が成功したかのメッセージ
+    case session["item_list_result"]
+    when 0 then # 成功
+      session["item_list_result"] = ""
+      flash.now[:notice] = '商品一覧を更新しました。'
+    when 1 then # ログイン失敗
+      session["item_list_result"] = ""
+      flash.now[:error] = 'ログインを失敗しました。'
+    end
   end
 
   # GET /accounts/new
@@ -67,7 +90,7 @@ class AccountsController < ApplicationController
   end
 
   def item_list
-    session[:item_list] = Account.find(params["id"]).item_list
+    session["item_list_result"] = Account.find(params["id"]).item_list
     redirect_to :action => "show"
   end
 

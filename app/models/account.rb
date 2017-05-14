@@ -35,11 +35,12 @@ class Account < ApplicationRecord
 
   # 商品リストを取得する
   def item_list
+    print "============商品リスト取得開始========="
     email = self.email
     password = self.decrypt_password
     
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, {:js_errors => false, :timeout => 20 })
+      Capybara::Poltergeist::Driver.new(app, {:js_errors => false, :timeout => 150 })
     end
 
     page = Capybara::Session.new(:poltergeist)
@@ -57,20 +58,21 @@ class Account < ApplicationRecord
 
         # ----ログイン処理-----
         p "================ログイン処理に入りました。==============="
-        page.find(".header_nav-login").click
-
+        login_button = page.find(".header_nav-login")
+        page.save_screenshot('screenshot1-2.png', :full => true)
+        login_button.click
         mail_input = page.find("#mail")
         mail_input.native.send_key(email)
         mail_input = page.find("#password")
         mail_input.native.send_key(password)
         submit = page.find('#postLogin')
         submit.click
-        # ------ログイン後--------
-        # ここにログインできたか判定いれる
+        # ログインができたかどうか判定
         if !page.has_css?("h4.h4-shop")
           p "======================ログイン失敗============================="
-          return ""
+          return 1
         end
+        # ------ログイン後--------
         # if page.has_css?("p.error")
         #   p "======================営業時間外============================="
         #   return "時間外"
@@ -81,14 +83,20 @@ class Account < ApplicationRecord
         page.find(:xpath, "//div[@class='menu_nav-btn']/a[@href='/menu/category_CO000/']").click
         page.save_screenshot('screenshot3.png', :full => true)
         p "======================桶一覧に移動============================="
-        name = []
+        name = ""
+        item_list = {}
         # Nokogiriでhtmlを解析してObjectに
         doc = Nokogiri::HTML.parse(page.html)
         menulist = doc.xpath('//ul[@class="menulist cols-1of2"]')
         menulist.css("li").each do |menu|
-          name.append(menu.xpath('p[@class="menulist_pdct"]').text)
+          item = {}
+          li_name = menu.xpath('p[@class="menulist_pdct"]').text
+          item["name"] = /\W/.match(li_name).post_match
+          item[]
+          item_list[li_name[/\w+/]] = item
         end
-        return name
+        Thread.current[:request].session[:sushi_list] = item_list
       end
+      return 0
   end
 end
