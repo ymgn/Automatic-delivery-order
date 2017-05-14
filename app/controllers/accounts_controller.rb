@@ -27,6 +27,7 @@ class AccountsController < ApplicationController
     file_path = "tmp/item_list/account_#{params["id"]}.json"
       if File.exist?(file_path)
         json_file = File.open(file_path).read
+        @item_list_time = File.mtime(file_path).strftime("最新更新 %Y年%m月%d日 %H時%M分%S秒")
         @item_list = JSON.load(json_file)
       else
         @item_list = ""

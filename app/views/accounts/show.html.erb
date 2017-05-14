@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <%= link_to '戻る', accounts_path %>
 <h1><%= @site_name %> [<%= @account.email %>][<%= @account.code %>]</h1>
 <%= link_to 'アカウント情報を編集', edit_account_path(@account) %>
@@ -27,13 +26,22 @@
 </div>
 <% end %>
 <% if @item_list.present? %>
+<h3>商品リスト <%= @item_list_time %></h3>
 <table class="table table-bordered">
   <tr>
     <th>名前</th>
+    <th>画像</th>
+    <th>商品情報</th>
+    <th>値段</th>
+    <th>説明</th>
   </tr>
   <% @item_list.each do |item|%>
     <tr>
-      <td><%= item %></td>
+      <td><%= item[1]["name"] %></td>
+      <td><%= image_tag item[1]["img"] %></td>
+      <td><%= item[1]["info"] %></td>
+      <td><%= item[1]["price"] %></td>
+      <td><%= item[1]["description"] %></td>
     </tr>
   <% end %>
 </table>
