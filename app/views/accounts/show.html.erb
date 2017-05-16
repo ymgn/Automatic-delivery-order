@@ -5,44 +5,50 @@
 <% count = 0%>
 <% @order_lists.each do |order_list| %>
   <h2>No.<%= count+=1 %> <%=  %><%= order_list.name %></h2>
-  <table class="table table-bordered">
-    <tr>
-      <th>商品ID</th>
-      <th>商品名</th>
-      <th>注文数</th>
-      <th></th>
-    </tr>
-    <% order_list.order.each do |o|%>
-    <tr>
-      <td><%= o.item_id %></td>
-      <td>商品名</td>
-      <td><%= o.item_num %></td>
-      <td><a href="#">商品詳細</a></td>
-    </tr>
-    <% end %>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <tr>
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>注文数</th>
+        <th></th>
+      </tr>
+      <% order_list.order.each do |o|%>
+      <tr>
+        <td><%= o.item_id %></td>
+        <td>商品名</td>
+        <td><%= o.item_num %></td>
+        <td><a href="#">商品詳細</a></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
 <div class="button-area">
-  <a href="/order_lists/<%= order_list.id %>">編集</a>
+  <a href="/order_lists/<%= order_list.id %>">リストNo.<%= count %> 編集</a>
 </div>
 <% end %>
 <% if @item_list.present? %>
 <h3>商品リスト <%= @item_list_time %></h3>
-<table class="table table-bordered">
-  <tr>
-    <th>名前</th>
-    <th>画像</th>
-    <th>商品情報</th>
-    <th>値段</th>
-    <th>説明</th>
-  </tr>
-  <% @item_list.each do |item|%>
+<div class="table-responsive">
+  <table class="table table-bordered">
     <tr>
-      <td><%= item[1]["name"] %></td>
-      <td><%= image_tag item[1]["img"] %></td>
-      <td><%= item[1]["info"] %></td>
-      <td><%= item[1]["price"] %></td>
-      <td><%= item[1]["description"] %></td>
+      <th class="col-sm-1">商品ID</th>
+      <th class="col-sm-2">名前</th>
+      <th class="col-sm-2">画像</th>
+      <th class="col-sm-2">商品情報</th>
+      <th class="col-sm-2">値段</th>
+      <th class="col-sm-3">説明</th>
     </tr>
-  <% end %>
-</table>
+    <% @item_list.each do |item|%>
+      <tr>
+        <td><%= item[0] %></td>
+        <td><%= item[1]["name"] %></td>
+        <td><%= image_tag item[1]["img"], :width => "200" %></td>
+        <td><%= item[1]["info"] %></td>
+        <td><%= item[1]["price"] %></td>
+        <td><%= item[1]["description"] %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 <% end %>
