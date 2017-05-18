@@ -20,7 +20,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1.json
   def show
     # アカウント毎のjsonファイルに保存した商品データから商品情報を表示
-    @order_lists = Account.find(params["id"]).order_list
+    @order_lists = Account.find(params["id"]).order_list.order("sort_num")
     @site_name = Account.find(params["id"]).site.name
 
     # 表示する商品リスト

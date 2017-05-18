@@ -2,9 +2,8 @@
 <h1><%= @site_name %> [<%= @account.email %>][<%= @account.code %>]</h1>
 <%= link_to 'アカウント情報を編集', edit_account_path(@account) %>
 <%= link_to '商品リストを取得・更新', account_item_list_path %>
-<% count = 0%>
 <% @order_lists.each do |order_list| %>
-  <h2>No.<%= count+=1 %> <%=  %><%= order_list.name %></h2>
+  <h2>No.<%= order_list.sort_num %> <%=  %><%= order_list.name %></h2>
   <div class="table-responsive">
     <table class="table table-bordered">
       <tr>
@@ -24,7 +23,7 @@
     </table>
   </div>
 <div class="button-area">
-  <a href="/order_lists/<%= order_list.id %>">リストNo.<%= count %> 編集</a>
+  <a href="/order_lists/<%= order_list.id %>">リストNo.<%= order_list.sort_num %> 編集</a>
 </div>
 <% end %>
 <% if @item_list.present? %>
