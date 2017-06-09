@@ -63,7 +63,7 @@ order_list.save!
 order_list = OrderList.new
 order_list.account_id = 1
 order_list.order_token = "hogehoge2"
-order_list.sort_num = 1
+order_list.sort_num = 2
 order_list.name = "軍艦づくし"
 order_list.save!
 
@@ -111,3 +111,11 @@ order.order_list_id = 4
 order.item_id = 2
 order.item_num = 5
 order.save!
+
+for v in 0..40 do
+  order = Order.new
+  order.order_list_id = 2
+  order.item_id = v
+  order.item_num = v%4+1
+  order.save!
+end
