@@ -47,6 +47,7 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
+    @site_list = Site.all
   end
 
   # GET /accounts/1/edit
@@ -56,7 +57,10 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
-    @account = Account.new(account_params)
+    account_data =  account_params
+    account_data[:user_id] = current_user.id
+
+    @account = Account.new(account_data)
 
     respond_to do |format|
       if @account.save

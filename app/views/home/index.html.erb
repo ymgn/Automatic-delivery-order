@@ -1,6 +1,7 @@
 <% if user_signed_in? %>
   <h1>Automatic Delivery Order</h1>
-  <p>アカウント一覧</p>
+  <p><%= link_to "新しくアカウントを追加する", new_account_path %></p>
+  <h2>アカウント一覧</h2>
   <% @account_data.each do |key,val| %>
     <div class="row">
       <div class="col-md-4"><%= key %></div>
@@ -19,4 +20,6 @@
 <% else %>
   <h1>Automatic Delivery Order</h1>
   <p>新規登録するかログインしてください。</p>
+  <p><%= link_to "新規登録", "/users/sign_up"  %></p>
+  <p><%= link_to "ログイン", "/users/sign_in"  %></p>
 <% end%>

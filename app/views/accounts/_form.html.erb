@@ -10,34 +10,30 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= f.label :user_id %>
-    <%= f.text_field :user_id %>
+    <label> サイトの注文するアカウントのメールアドレス</label>
+    <% @site_list.each do |site| %>
+      <label><%= f.radio_button :site_id, site.id %><%= site.name %></label>
+    <% end %>
   </div>
-
   <div class="field">
-    <%= f.label :site_id %>
-    <%= f.text_field :site_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :code %>
+    <label>注文APIで使用する識別コード名</label>
     <%= f.text_field :code %>
   </div>
 
+<h4>以下　サイトの注文するアカウント情報</h4>
   <div class="field">
-    <%= f.label :email %>
+    <label> メールアドレス</label>
     <%= f.text_field :email %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <label> パスワード</label>
     <%= f.text_field :password %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation, "Confirmation" %>
+    <label> パスワード再入力</label>
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="actions">
