@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 20170512044625) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "user_id",    null: false
-    t.string   "site_id",    null: false
+    t.integer  "user_id",    null: false
+    t.integer  "site_id",    null: false
     t.string   "code",       null: false
     t.string   "email",      null: false
     t.string   "password",   null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170512044625) do
   end
 
   create_table "order_lists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "account_id",  null: false
+    t.integer  "account_id",  null: false
     t.string   "order_token", null: false
     t.integer  "sort_num",    null: false
     t.datetime "created_at",  null: false
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20170512044625) do
   end
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "order_list_id", null: false
-    t.string   "item_id",       null: false
+    t.integer  "order_list_id", null: false
+    t.integer  "item_id",       null: false
     t.integer  "item_num",      null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
