@@ -1,3 +1,4 @@
+require 'securerandom'
 class OrderListsController < ApplicationController
   before_action :set_order_list, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
@@ -11,6 +12,23 @@ class OrderListsController < ApplicationController
   # GET /order_lists/1
   # GET /order_lists/1.json
   def show
+    account_id = @order_list.account_id
+
+    # 別のユーザーが所持している注文リストだった場合の処理
+    if !current_user.account.ids.include?(account_id)
+      flash.now[:error] = '別のアカウントの注文リスト'
+      # 弾く処理を追加
+    end
+
+    file_path = "tmp/item_list/account_#{account_id}.json"
+      if File.exist?(file_path)
+        json_file = File.open(file_path).read
+        @item_list = JSON.load(json_file)
+      else
+        @item_list = ""
+      end
+
+
   end
 
   # GET /order_lists/new
@@ -22,10 +40,20 @@ class OrderListsController < ApplicationController
   def edit
   end
 
+  # GET /order_lists/1/edit_orders
+  # 注文リストの内容を変更
+  def edit_orders
+
+  end
   # POST /order_lists
   # POST /order_lists.json
   def create
-    @order_list = OrderList.new(order_list_params)
+    @order_list_data = {}
+    @order_list_data["name"] = order_list_params["name"]
+    @order_list_data["sort_num"] = order_list_params["sort_num"]
+    @order_list_data["account_id"] = session["account_id"]
+    @order_list_data["order_token"] = SecureRandom.hex(16)
+    @order_list = OrderList.new(@order_list_data)
 
     respond_to do |format|
       if @order_list.save

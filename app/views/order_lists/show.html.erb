@@ -1,24 +1,54 @@
-<p id="notice"><%= notice %></p>
+<h2>No.<%= @order_list.sort_num %> <%=  %><%= @order_list.name %></h2>
+<h3>注文用Token : [<%= @order_list.order_token %>]</h3>
+<%= link_to '注文を編集する', order_list_path(@order_list.id) %>
+<%= link_to '注文を編集する', order_list_edit_orders_path %>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+      <th>商品ID</th>
+      <th>商品名</th>
+      <th>注文数</th>
+      <th></th>
+    </tr>
+    <% @order_list.order.each do |o|%>
+      <% @item = @item_list[o.item_id] %>
+      <tr>
+        <td><%= o.item_id %></td>
+          <% if @item %>
+            <%= @item["name"] %>
+          <% else %>
+            商品リスト外のID <%= o.item_id %>
+          <% end %>
+        <td><%= o.item_num %></td>
+        <td><a href="<%= request.url %>#<%= o.item_id %>">商品詳細</a></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
-<p>
-  <strong>Account:</strong>
-  <%= @order_list.account_id %>
-</p>
-
-<p>
-  <strong>Order token:</strong>
-  <%= @order_list.order_token %>
-</p>
-
-<p>
-  <strong>Sort num:</strong>
-  <%= @order_list.sort_num %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @order_list.name %>
-</p>
-
-<%= link_to 'Edit', edit_order_list_path(@order_list) %> |
-<%= link_to 'Back', order_lists_path %>
+<%= link_to '注文リスト一覧に戻る', account_path(session["account_id"]) %>
+<% simple_form_for @order_list do |f| %>
+  <table class="table table-bordered">
+    <tr>
+      <th class="col-sm-1">注文</th>
+      <th class="col-sm-1">注文個数</th>
+      <th class="col-sm-2">名前</th>
+      <th class="col-sm-2">画像</th>
+      <th class="col-sm-2">商品情報</th>
+      <th class="col-sm-2">値段</th>
+      <th class="col-sm-3">説明</th>
+    </tr>
+    <% @item_list.each do |item_data|%>
+      <% item_id = item_data[0] %>
+      <% item = item_data[1] %>
+      <tr id="<%= item_id %>">
+        <td><%= f.input :id  %></td>
+        <td><%= item["name"] %></td>
+        <td><%= image_tag item["img"], :width => "200" %></td>
+        <td><%= item["info"] %></td>
+        <td><%= item["price"] %></td>
+        <td><%= item["description"] %></td>
+      </tr>
+    <% end %>
+  </table>
+  <% end %>
