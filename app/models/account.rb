@@ -9,7 +9,7 @@ class Account < ApplicationRecord
   belongs_to :site
 
   before_save :encrypt_password
-  
+
   # いずれ適切な位置に移動させる
   SECURE = '6ZEMlruVq1u20bBab6LkFznJfTNgTIqOWUo7lv6zs2uavtKX1u'
   CIPHER = 'aes-256-cbc'
@@ -40,7 +40,7 @@ class Account < ApplicationRecord
     # ログイン用のデータ取得
     email = self.email
     password = self.decrypt_password
-    
+
     Capybara.register_driver :poltergeist do |app|
       Capybara::Poltergeist::Driver.new(app, {:js_errors => false, :timeout => 150 })
     end
@@ -71,7 +71,8 @@ class Account < ApplicationRecord
         # ログインができたかどうか判定
         if !page.has_css?("h4.h4-shop")
           p "======================ログイン失敗============================="
-          session.driver.quit
+          page.save_screenshot('screenshot2.png', :full => true)
+          page.driver.quit
           return 1
         end
         # ------ログイン後--------
@@ -80,7 +81,6 @@ class Account < ApplicationRecord
         #   return "時間外"
         # end
         p "======================ログイン成功============================="
-        page.save_screenshot('screenshot2.png', :full => true)
         page.find('.top-service-menu').click
         page.find(:xpath, "//div[@class='menu_nav-btn']/a[@href='/menu/category_CO000/']").click
         page.save_screenshot('screenshot3.png', :full => true)
@@ -99,7 +99,7 @@ class Account < ApplicationRecord
           item["description"] = menu.xpath('div/p').text
           item_list[li_name[/\w+/]] = item
         end
-        File.open("tmp/item_list/account_#{self.id}.json","w") do |file| 
+        File.open("tmp/item_list/account_#{self.id}.json","w") do |file|
           JSON.dump(item_list,file)
         end
       end
