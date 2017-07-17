@@ -86,30 +86,35 @@ order = Order.new
 order.order_list_id = 1
 order.item_id = 1
 order.item_num = 2
+order.order_flag = true
 order.save!
 
 order = Order.new
 order.order_list_id = 1
 order.item_id = 2
 order.item_num = 6
+order.order_flag = true
 order.save!
 
 order = Order.new
 order.order_list_id = 2
 order.item_id = 3
 order.item_num = 2
+order.order_flag = true
 order.save!
 
 order = Order.new
 order.order_list_id = 3
 order.item_id = 1
 order.item_num = 4
+order.order_flag = true
 order.save!
 
 order = Order.new
 order.order_list_id = 4
 order.item_id = 2
 order.item_num = 5
+order.order_flag = true
 order.save!
 
 for v in 0..40 do
@@ -117,5 +122,6 @@ for v in 0..40 do
   order.order_list_id = 2
   order.item_id = v
   order.item_num = v%4+1
+  order.order_flag = true
   order.save!
 end
